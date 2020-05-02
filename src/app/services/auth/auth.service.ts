@@ -12,9 +12,14 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   user: User;
-  logueado = false;
 
-  constructor(public afAuth: AngularFireAuth, public router: Router) { }
+  constructor(public afAuth: AngularFireAuth, public router: Router) {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.user = user;
+      }
+    });
+  }
 
   async login( usuario: Usuario, recordar: boolean ) {
     try {
@@ -24,9 +29,7 @@ export class AuthService {
         localStorage.removeItem('email');
       }
       const result = await this.afAuth.signInWithEmailAndPassword(usuario.email, usuario.password);
-      if (result != null) {
-        this.logueado = true;
-      }
+      localStorage.setItem('user', JSON.stringify(this.user));
       this.router.navigate(['/home']);
       return result;
     } catch (error) {
@@ -37,7 +40,7 @@ export class AuthService {
   async logout() {
     try {
       await this.afAuth.signOut();
-      this.logueado = false;
+      localStorage.removeItem('user');
       this.router.navigate(['/login']);
     } catch (error) {
       console.error(error);
@@ -45,7 +48,8 @@ export class AuthService {
   }
 
   isLogged() {
-    return this.logueado;
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user !== null;
   }
 
   getCurrentUser() {
@@ -54,8 +58,6 @@ export class AuthService {
 
   async getCurrentUserData() {
     const respUser = await this.getCurrentUser();
-    return this.http
-
   }
 
 }
