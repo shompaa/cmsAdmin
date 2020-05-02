@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig: {
+    apiKey: 'AIzaSyAUfMSnCutV__OPOypZ0z_mN7TSmfM5Z9k',
+    authDomain: 'nitzyrecipes.firebaseapp.com',
+    databaseURL: 'https://nitzyrecipes.firebaseio.com',
+    projectId: 'nitzyrecipes',
+    storageBucket: 'nitzyrecipes.appspot.com',
+    messagingSenderId: '439120668725',
+    appId: '1:439120668725:web:6ceb7cb186f7999cf6a97c'
+  }
 };
 
 /*

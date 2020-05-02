@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "cmsAdmin",
+      "public": "dist/cmsAdmin",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}
